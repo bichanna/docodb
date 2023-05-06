@@ -1,5 +1,7 @@
 package com.bichanna.docodb
 
+import util.LRUCache
+
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.util.{Failure, Try}
