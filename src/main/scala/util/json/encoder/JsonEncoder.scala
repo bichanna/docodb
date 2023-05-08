@@ -3,6 +3,10 @@ package util.json.encoder
 
 import util.json.*
 
+/**
+ * A trait for encoding objects to JSON
+ * @tparam A The type of the object to encode
+ */
 trait JsonEncoder[A]:
   def encode(value: A): JsonValue
 

@@ -1,6 +1,9 @@
 package com.bichanna.docodb
 package util.json
 
+/**
+ * A custom JSON representation that can be used with any JSON library
+ */
 sealed trait JsonValue:
   def asJson: String
 

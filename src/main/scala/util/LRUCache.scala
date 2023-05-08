@@ -4,6 +4,12 @@ package util
 import java.util.NoSuchElementException
 import scala.collection.mutable
 
+/**
+ * An implementation of least-recently used (LRU) cache with a finite cache size
+ * @param capacity The maximum number of entries in the cache
+ * @tparam K The type of the keys
+ * @tparam V The type of the values
+ */
 class LRUCache[K, V](private val capacity: Int) extends mutable.Map[K, V]:
   private var cache = mutable.LinkedHashMap.empty[K, V]
 
@@ -55,7 +61,7 @@ class LRUCache[K, V](private val capacity: Int) extends mutable.Map[K, V]:
 
   override def keys: Iterable[K] = cache.keys
 
-  override def keySet: collection.Set[K] = cache.keySet
+  override def keySet: scala.collection.Set[K] = cache.keySet
 
   override def keysIterator: Iterator[K] = cache.keysIterator
 

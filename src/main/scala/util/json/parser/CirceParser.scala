@@ -3,6 +3,9 @@ package util.json.parser
 
 import util.json.*
 
+/**
+ * A concrete implementation of the JsonParser trait using Circe
+ */
 object CirceParser extends JsonParser:
 
   import io.circe.{Json, parser}
