@@ -1,26 +1,20 @@
 package com.bichanna.docodb
 package util.json
 
+import util.*
+
+import scala.language.implicitConversions
+
 /**
- * A custom JSON representation that can be used with any JSON library
+ * A custom JSON representation based on DocoValue that can be used with any JSON library
  */
-sealed trait JsonValue:
-  def asJson: String
+class JsonValue(dv: DocoValue):
+  def asJson: String = dv match
+    case DocoNull => "null"
+    case DocoBoolean(value) => value.toString
+    case DocoNumber(value) => value.toString()
+    case DocoString(value) => s"\"${value}\""
+    case DocoList(elements) => s"[${elements.map(_.asJson).mkString(", ")}]"
+    case DocoMapping(pairs) => s"{${pairs.map((k: String, v: DocoValue) => s"\"$k\": ${v.asJson}").mkString(", ")}}"
 
-case object JsonNull extends JsonValue:
-  override def asJson: String = "null"
-
-case class JsonBoolean(var value: Boolean) extends JsonValue:
-  override def asJson: String = value.toString
-
-case class JsonNumber(var value: BigDecimal) extends JsonValue:
-  override def asJson: String = value.toString()
-
-case class JsonString(var value: String) extends JsonValue:
-  override def asJson: String = s"\"$value\""
-
-case class JsonArray(var elements: Seq[JsonValue]) extends JsonValue:
-  override def asJson: String = s"[${elements.map(_.asJson).mkString(", ")}]"
-
-case class JsonObject(var pairs: Map[String, JsonValue]) extends JsonValue:
-  override def asJson: String = s"{${pairs.map((k, v) => s"\"$k\" : ${v.asJson}").mkString(", ")}}"
+implicit def asJsonValue(dv: DocoValue): JsonValue = JsonValue(dv)

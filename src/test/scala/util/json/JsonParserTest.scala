@@ -2,6 +2,8 @@ package com.bichanna.docodb
 package util.json
 
 import util.json.parser.CirceParser
+
+import util.*
 import org.scalatest.funsuite.AnyFunSuite
 class JsonParserTest extends AnyFunSuite:
   test("Circe parser test") {
@@ -14,12 +16,12 @@ class JsonParserTest extends AnyFunSuite:
       "null": null
     }
     """
-    val result = CirceParser.parse(json).getOrElse(JsonNull)
-    assert(result == JsonObject(Map(
-      "str" -> JsonString("Nobu"),
-      "num" -> JsonNumber(17),
-      "list" -> JsonArray(Seq(JsonString("tennis"), JsonString("piano"))),
-      "bool" -> JsonBoolean(true),
-      "null" -> JsonNull,
+    val result = CirceParser.parse(json).getOrElse(DocoNull)
+    assert(result == DocoMapping(Map(
+      "str" -> DocoString("Nobu"),
+      "num" -> DocoNumber(17),
+      "list" -> DocoList(Seq(DocoString("tennis"), DocoString("piano"))),
+      "bool" -> DocoBoolean(true),
+      "null" -> DocoNull,
     )))
   }
