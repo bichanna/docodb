@@ -1,10 +1,11 @@
 package com.bichanna.docodb
 package collection
 
-import util.DocoValue
+import util.{DocoMapping, DocoValue}
 
 import scala.collection
 import scala.collection.mutable
+import scala.language.implicitConversions
 
 /**
  * A document stored in database
@@ -52,3 +53,5 @@ object Document:
   private def newNextId: Int =
     nextId += 1
     nextId
+
+implicit def docoMapToDocument(dm: DocoMapping): Document = Document(dm.pairs)
