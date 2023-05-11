@@ -21,11 +21,17 @@ val document = Document(Map(
   ))
 ))
 
-class JsonStorageTest extends AnyFunSuite:
+class StorageTest extends AnyFunSuite:
   test("JsonStorage read write") {
     val storage = JsonStorage(path)
     storage.write(document)
-    assert(Some(document) == storage.read())
+    assert(storage.read().contains(document))
 
     storage.close()
+  }
+
+  test("MemoryStorage read write") {
+    val storage = MemoryStorage()
+    storage.write(document)
+    assert(storage.read().contains(document))
   }
