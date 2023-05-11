@@ -24,3 +24,15 @@ case class DocoList(var elements: Seq[DocoValue]) extends DocoValue
 case class DocoMapping(var pairs: Map[String, DocoValue]) extends DocoValue
 
 implicit def documentToDocoMapping(doc: Document): DocoMapping = DocoMapping(doc.doc)
+
+implicit def boolToDocoBoolean(value: Boolean): DocoBoolean = DocoBoolean(value)
+
+implicit def intToDocoNumber(value: Int): DocoNumber = DocoNumber(BigDecimal(value))
+
+implicit def doubleToDocoNumber(value: Double): DocoNumber = DocoNumber(BigDecimal(value))
+
+implicit def stringToDocoString(value: String): DocoString = DocoString(value)
+
+implicit def seqToDocoList(seq: Seq[DocoValue]): DocoList = DocoList(seq)
+
+implicit def mapToDocoMapping(map: Map[String, DocoValue]): DocoMapping = DocoMapping(map)
