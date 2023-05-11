@@ -1,11 +1,10 @@
 package com.bichanna.docodb
 package storage
 
-import collection.Document
+import collection.{Document, docoMapToDocument}
 import util.json.asJsonValue
 import util.json.parser.CirceParser
 import util.{DocoMapping, documentToDocoMapping}
-import collection.docoMapToDocument
 
 import java.io.*
 import scala.util.{Failure, Success, Try}
