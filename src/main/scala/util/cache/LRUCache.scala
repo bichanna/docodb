@@ -1,16 +1,17 @@
 package com.bichanna.docodb
-package util
+package util.cache
 
 import java.util.NoSuchElementException
 import scala.collection.mutable
 
 /**
  * An implementation of least-recently used (LRU) cache with a finite cache size
+ *
  * @param capacity The maximum number of entries in the cache
  * @tparam K The type of the keys
  * @tparam V The type of the values
  */
-class LRUCache[K, V](private val capacity: Int) extends mutable.Map[K, V]:
+class LRUCache[K, V](val capacity: Int) extends Cache[K, V]:
   private var cache = mutable.LinkedHashMap.empty[K, V]
 
   def lru: Seq[K] = cache.keys.toSeq

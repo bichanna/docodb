@@ -1,7 +1,7 @@
 package com.bichanna.docodb
-package util
+package util.cache
 
-import util.LRUCache
+import util.cache.LRUCache
 
 import org.scalatest.funsuite.AnyFunSuite
 
