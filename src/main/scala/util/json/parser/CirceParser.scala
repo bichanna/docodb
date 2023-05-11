@@ -1,8 +1,10 @@
 package com.bichanna.docodb
 package util.json.parser
 
-import util.json.*
 import util.*
+import util.json.*
+
+import scala.collection.mutable
 
 /**
  * A concrete implementation of the JsonParser trait using Circe
@@ -21,5 +23,5 @@ object CirceParser extends JsonParser:
     num => DocoNumber(num.toBigDecimal.getOrElse(throw Exception(s"invalid number: $num"))),
     DocoString,
     arr => DocoList(arr.map(toJsonValue)),
-    obj => DocoMapping(obj.toMap.view.mapValues(toJsonValue).toMap)
+    obj => DocoMapping(mutable.Map.from(obj.toMap.view.mapValues(toJsonValue).toMap))
   )

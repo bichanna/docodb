@@ -1,10 +1,12 @@
 package com.bichanna.docodb
 package util.json
 
+import util.*
 import util.json.encoder.JsonEncoder
 
-import util.*
 import org.scalatest.funsuite.AnyFunSuite
+
+import scala.collection.mutable.Map
 
 class JsonEncoderTest extends AnyFunSuite:
   test("JsonEncoder class test") {

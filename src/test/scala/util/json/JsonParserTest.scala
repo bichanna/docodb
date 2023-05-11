@@ -1,13 +1,17 @@
 package com.bichanna.docodb
 package util.json
 
+import util.*
 import util.json.parser.CirceParser
 
-import util.*
 import org.scalatest.funsuite.AnyFunSuite
+
+import scala.collection.mutable.Map
+
 class JsonParserTest extends AnyFunSuite:
   test("Circe parser test") {
-    val json = """
+    val json =
+      """
     {
       "str": "Nobu",
       "num": 17,

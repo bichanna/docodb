@@ -4,6 +4,8 @@ package util.json.encoder
 import util.*
 import util.json.*
 
+import scala.collection.mutable
+
 /**
  * A trait for encoding objects to JSON
  *
@@ -30,4 +32,4 @@ object JsonEncoder:
     DocoList(value.map(enc.encode))
 
   implicit def mapEncoder[A](implicit enc: JsonEncoder[A]): JsonEncoder[Map[String, A]] = (value: Map[String, A]) =>
-    DocoMapping(value.map { case (k, v) => (k, enc.encode(v)) })
+    DocoMapping(mutable.Map.from(value.map { case (k, v) => (k, enc.encode(v)) }))

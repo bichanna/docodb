@@ -1,6 +1,11 @@
 package com.bichanna.docodb
 package util
 
+import collection.Document
+
+import scala.collection.mutable.Map
+import scala.language.implicitConversions
+
 /**
  * A custom representation for different data formats like JSON and YAML
  */
@@ -17,3 +22,5 @@ case class DocoString(var value: String) extends DocoValue
 case class DocoList(var elements: Seq[DocoValue]) extends DocoValue
 
 case class DocoMapping(var pairs: Map[String, DocoValue]) extends DocoValue
+
+implicit def documentToDocoMapping(doc: Document): DocoMapping = DocoMapping(doc.doc)

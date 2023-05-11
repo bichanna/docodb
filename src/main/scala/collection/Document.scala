@@ -3,6 +3,7 @@ package collection
 
 import util.DocoValue
 
+import scala.collection
 import scala.collection.mutable
 
 /**
@@ -26,6 +27,24 @@ class Document(map: mutable.Map[String, DocoValue]) extends mutable.Map[String, 
   override def addOne(elem: (String, DocoValue)): Document.this.type =
     doc.addOne(elem)
     this
+
+  override def map[B](f: ((String, DocoValue)) => B): mutable.Iterable[B] = doc.map(f)
+
+  override def contains(key: String): Boolean = doc.contains(key)
+
+  override def remove(key: String): Option[DocoValue] = doc.remove(key)
+
+  override def isDefinedAt(key: String): Boolean = doc.isDefinedAt(key)
+
+  override def keys: Iterable[String] = doc.keys
+
+  override def keySet: collection.Set[String] = doc.keySet
+
+  override def keysIterator: Iterator[String] = doc.keysIterator
+
+  override def values: Iterable[DocoValue] = doc.values
+
+  override def valuesIterator: Iterator[DocoValue] = doc.valuesIterator
 
 object Document:
   private var nextId: Int = 0

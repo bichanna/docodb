@@ -3,7 +3,10 @@ package util.json
 
 import util.*
 import util.json.asJsonValue
+
 import org.scalatest.funsuite.AnyFunSuite
+
+import scala.collection.mutable.Map
 
 class JsonValueTest extends AnyFunSuite:
   test("JsonEncoder number test") {
