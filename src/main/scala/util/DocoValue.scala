@@ -1,8 +1,6 @@
 package com.bichanna.docodb
 package util
 
-import collection.Document
-
 import scala.collection.mutable.Map
 import scala.language.implicitConversions
 
@@ -22,8 +20,6 @@ case class DocoString(var value: String) extends DocoValue
 case class DocoList(var elements: Seq[DocoValue]) extends DocoValue
 
 case class DocoMapping(var pairs: Map[String, DocoValue]) extends DocoValue
-
-implicit def documentToDocoMapping(doc: Document): DocoMapping = DocoMapping(doc.doc)
 
 implicit def boolToDocoBoolean(value: Boolean): DocoBoolean = DocoBoolean(value)
 

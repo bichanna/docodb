@@ -1,7 +1,6 @@
 package com.bichanna.docodb
 package storage
 
-import collection.Document
 import util.DocoValue
 
 /**
@@ -14,14 +13,14 @@ trait Storage:
    *
    * @return If `None` is returned, it means the storage is empty.
    */
-  def read(): Option[Document]
+  def read(): Option[DocoValue]
 
   /**
    * Writes the current state of the database to the storage
    *
-   * @param document The current data of the database
+   * @param value The current data of the database
    */
-  def write(document: Document): Unit
+  def write(value: DocoValue): Unit
 
   /**
    * Closes open file handles, etc.

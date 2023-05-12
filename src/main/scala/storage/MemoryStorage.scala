@@ -1,7 +1,7 @@
 package com.bichanna.docodb
 package storage
 
-import collection.Document
+import util.{DocoMapping, DocoValue}
 
 import scala.collection.mutable
 
@@ -10,11 +10,11 @@ import scala.collection.mutable
  *
  * @param memory
  */
-class MemoryStorage(private var memory: Document) extends Storage:
-  def this() = this(Document(mutable.Map.empty))
+class MemoryStorage(private var memory: DocoValue) extends Storage:
+  def this() = this(DocoMapping(mutable.Map.empty))
 
-  override def read(): Option[Document] = Some(memory)
+  override def read(): Option[DocoValue] = Some(memory)
 
-  override def write(document: Document): Unit = memory = document
+  override def write(value: DocoValue): Unit = memory = value
 
   override def close(): Unit = () // Does not need to be implemented

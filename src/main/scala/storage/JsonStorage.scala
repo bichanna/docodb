@@ -1,10 +1,9 @@
 package com.bichanna.docodb
 package storage
 
-import collection.{Document, docoMapToDocument}
+import util.DocoValue
 import util.json.asJsonValue
 import util.json.parser.CirceParser
-import util.{DocoMapping, documentToDocoMapping}
 
 import java.io.*
 import scala.util.{Failure, Success, Try}
@@ -19,7 +18,7 @@ import scala.util.{Failure, Success, Try}
 class JsonStorage(path: String, mode: String = "rw", encoding: String = "UTF8") extends Storage:
   private val handle = RandomAccessFile(path, mode)
 
-  override def read(): Option[Document] =
+  override def read(): Option[DocoValue] =
     handle.seek(0)
     Try(handle.length()) match
       case Failure(_) => None
@@ -33,16 +32,13 @@ class JsonStorage(path: String, mode: String = "rw", encoding: String = "UTF8") 
         CirceParser.parse(str) match
           case Left(err) => None
           // Try converting DocoMapping
-          case Right(docoValue) => Try(docoValue.asInstanceOf[DocoMapping]) match
-            case Failure(err) => None
-            // Return the DocoMapping as Document object (implicit conversion)
-            case Success(doc) => Some(doc)
+          case Right(docoValue) => Some(docoValue)
 
-  override def write(document: Document): Unit =
+  override def write(value: DocoValue): Unit =
     // Move the cursor to the beginning of the file
     handle.seek(0)
 
-    val serialized = DocoMapping(document.doc).asJson.getBytes(encoding)
+    val serialized = value.asJson.getBytes(encoding)
     handle.write(serialized)
 
     // Ensure the file's been written
