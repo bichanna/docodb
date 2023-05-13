@@ -10,11 +10,11 @@ import scala.collection.mutable
  *
  * @param memory
  */
-class MemoryStorage(private var memory: DocoValue) extends Storage:
+class MemoryStorage(private var memory: DocoMapping) extends Storage:
   def this() = this(DocoMapping(mutable.Map.empty))
 
-  override def read(): Option[DocoValue] = Some(memory)
+  override def read(): Option[DocoMapping] = Some(memory)
 
-  override def write(value: DocoValue): Unit = memory = value
+  override def write(document: DocoMapping): Unit = memory = document
 
   override def close(): Unit = () // Does not need to be implemented

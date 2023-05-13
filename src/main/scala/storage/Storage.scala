@@ -1,7 +1,7 @@
 package com.bichanna.docodb
 package storage
 
-import util.DocoValue
+import util.{DocoMapping, DocoValue}
 
 /**
  * A trait for all Storages.
@@ -13,14 +13,14 @@ trait Storage:
    *
    * @return If `None` is returned, it means the storage is empty.
    */
-  def read(): Option[DocoValue]
+  def read(): Option[DocoMapping]
 
   /**
    * Writes the current state of the database to the storage
    *
-   * @param value The current data of the database
+   * @param document The current data of the database
    */
-  def write(value: DocoValue): Unit
+  def write(document: DocoMapping): Unit
 
   /**
    * Closes open file handles, etc.
