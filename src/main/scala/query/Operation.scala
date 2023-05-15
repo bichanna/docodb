@@ -8,6 +8,14 @@ import scala.collection.mutable
 
 sealed trait Operation
 
+object Nothing extends Operation
+
+case class And(self: Operation, op: Operation) extends Operation
+
+case class Or(self: Operation, op: Operation) extends Operation
+
+case class Not(op: Operation) extends Operation
+
 case class Path(op: Operation) extends Operation
 
 case class Equal(op: Operation, rhs: Any) extends Operation

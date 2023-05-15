@@ -5,14 +5,7 @@ import util.DocoValue
 
 import scala.collection.mutable
 
-enum Operators:
-  case And, Or, Not
-
-case class HashTuple(op: Operators, left: Hash, right: Hash)
-
-type Hash = Option[HashTuple]
-
-class QueryInstance(test: mutable.Map[String, DocoValue] => Boolean, var hash: Hash):
+class QueryInstance(protected var test: mutable.Map[String, DocoValue] => Boolean, protected var hash: Operation):
   /**
    * Evaluates the query to check if it matches a specific value
    *
@@ -25,19 +18,19 @@ class QueryInstance(test: mutable.Map[String, DocoValue] => Boolean, var hash: H
 
   def and(other: QueryInstance): QueryInstance =
     val hashval = if isCacheable && other.isCacheable then
-      Some(HashTuple(Operators.And, hash, other.hash)) else None
+      And(hash, other.hash) else Nothing
     QueryInstance(value => this (value) && other(value), hashval)
+
+  def isCacheable: Boolean = hash != Nothing
 
   def or(other: QueryInstance): QueryInstance =
     val hashval = if isCacheable && other.isCacheable then
-      Some(HashTuple(Operators.Or, hash, other.hash)) else None
+      Or(hash, other.hash) else Nothing
     QueryInstance(value => this (value) || other(value), hashval)
 
   def not: QueryInstance =
-    val hashval = if isCacheable then Some(HashTuple(Operators.Not, hash, None)) else None
+    val hashval = if isCacheable then Not(hash) else Nothing
     QueryInstance(value => !this (value), hashval)
-
-  def isCacheable: Boolean = hash.isDefined
 
   override def equals(obj: Any): Boolean =
     if obj.isInstanceOf[QueryInstance] then obj.hashCode() == hashCode() else false
