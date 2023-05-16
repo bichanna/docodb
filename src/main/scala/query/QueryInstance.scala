@@ -17,19 +17,19 @@ class QueryInstance(protected var test: mutable.Map[String, DocoValue] => Boolea
   override def toString: String = s"QueryImpl$hash"
 
   def and(other: QueryInstance): QueryInstance =
-    val hashval = if isCacheable && other.isCacheable then
-      And(hash, other.hash) else Nothing
+    val hashval: Operation = if isCacheable && other.isCacheable then
+      And(hash, other.hash) else Nothing()
     QueryInstance(value => this (value) && other(value), hashval)
 
-  def isCacheable: Boolean = hash != Nothing
+  def isCacheable: Boolean = !hash.isInstanceOf[Nothing]
 
   def or(other: QueryInstance): QueryInstance =
     val hashval = if isCacheable && other.isCacheable then
-      Or(hash, other.hash) else Nothing
+      Or(hash, other.hash) else Nothing()
     QueryInstance(value => this (value) || other(value), hashval)
 
   def not: QueryInstance =
-    val hashval = if isCacheable then Not(hash) else Nothing
+    val hashval = if isCacheable then Not(hash) else Nothing()
     QueryInstance(value => !this (value), hashval)
 
   override def equals(obj: Any): Boolean =
